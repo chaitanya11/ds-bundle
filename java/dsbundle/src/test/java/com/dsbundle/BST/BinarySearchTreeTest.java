@@ -1,5 +1,6 @@
-package com.dsbundle;
+package com.dsbundle.BST;
 
+import com.dsbundle.BST.BinarySearchTree;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
