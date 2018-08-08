@@ -1,6 +1,6 @@
 package com.dsbundle.models;
 
-/* BST Node containing left and right child of current node and key value */
+/* bst Node containing left and right child of current node and key value */
 public class BSTNode {
 	int key;
 	BSTNode left, right;

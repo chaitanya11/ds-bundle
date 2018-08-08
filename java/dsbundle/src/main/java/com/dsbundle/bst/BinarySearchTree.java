@@ -1,4 +1,4 @@
-package com.dsbundle.BST;
+package com.dsbundle.bst;
 
 import com.dsbundle.models.BSTNode;
 

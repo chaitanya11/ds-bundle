@@ -1,6 +1,5 @@
-package com.dsbundle.BST;
+package com.dsbundle.bst;
 
-import com.dsbundle.BST.BinarySearchTree;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -28,7 +27,7 @@ public class BinarySearchTreeTest {
 		BinarySearchTree tree = new BinarySearchTree();
 
 		/*
-		 * Let us create following BST 50 / \ 30 70 / \ / \ 20 40 60 80
+		 * Let us create following bst 50 / \ 30 70 / \ / \ 20 40 60 80
 		 */
 		tree.insert(50);
 		tree.insert(30);
@@ -38,7 +37,7 @@ public class BinarySearchTreeTest {
 		tree.insert(60);
 		tree.insert(80);
 
-		// print inorder traversal of the BST
+		// print inorder traversal of the bst
 		tree.inorder();
 	}
 
