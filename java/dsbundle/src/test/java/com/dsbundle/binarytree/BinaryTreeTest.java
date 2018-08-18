@@ -1,5 +1,6 @@
 package com.dsbundle.binarytree;
 
+import com.dsbundle.models.BinaryTreeNode;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,8 +30,20 @@ public class BinaryTreeTest {
 		tree.insertValue(6);
 		tree.insertValue(7);
 		tree.insertValue(8);
-		String result = tree.traverseTree();
-		Assert.assertEquals(result, "12345678");
+		String result = tree.preOrderTraverseTree();
+		Assert.assertEquals(result, "12453");
+	}
+
+	@Test
+	public void postOrderTest() {
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.setRoot(new BinaryTreeNode<>(1));
+		tree.getRoot().setLeft(new BinaryTreeNode<>(2));
+		tree.getRoot().setRight(new BinaryTreeNode<>(3));
+		tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(4));
+		tree.getRoot().getLeft().setRight(new BinaryTreeNode<>(5));
+		String result = tree.postOrderTraverse(tree.getRoot());
+		Assert.assertEquals(result, "45231");
 	}
 
 }

@@ -12,22 +12,38 @@ import java.util.Stack;
  */
 public class PostOrderIterator<E extends BinaryTreeNode> implements Iterator<E> {
   private Stack<E> nodesStack;
-  private E curr;
 
   public PostOrderIterator(final E root) {
     this.nodesStack = new Stack<>();
-    this.curr = root;
+    this.findNextLeaf(root);
   }
 
   @Override
   public boolean hasNext() {
-    return this.curr != null;
+    return !this.nodesStack.empty();
   }
+
 
   @Override
   public E next() {
-    E node = this.curr;
-
+    E node = this.nodesStack.pop();
+    if (!this.nodesStack.empty()) {
+      E top = this.nodesStack.peek();
+      if (node == top.getLeft()) {
+        findNextLeaf((E) top.getRight());
+      }
+    }
     return node;
+  }
+
+  private void findNextLeaf(E curr) {
+    while (curr != null) {
+      this.nodesStack.push(curr);
+      if (curr.getLeft() != null) {
+        curr = (E) curr.getLeft();
+      } else {
+        curr = (E) curr.getRight();
+      }
+    }
   }
 }

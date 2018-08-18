@@ -1,7 +1,6 @@
 package com.dsbundle.binarytree;
 
 import java.util.Iterator;
-import java.util.Random;
 
 import com.dsbundle.models.BinaryTreeNode;
 
@@ -40,7 +39,7 @@ public class BinaryTree<T> {
 		return node;
 	}
 
-	private String traverse(BinaryTreeNode<T> node) {
+	private String preOrderTraverse(BinaryTreeNode<T> node) {
 		final StringBuilder stringBuilder = new StringBuilder();
 		Iterator<BinaryTreeNode<T>> iterator = node.getPreOrderIterator();
 		while (iterator.hasNext()) {
@@ -49,8 +48,17 @@ public class BinaryTree<T> {
 		return stringBuilder.toString();
 	}
 
-	public String traverseTree() {
-		return this.traverse(root);
+	public String postOrderTraverse(BinaryTreeNode<T> node) {
+		final StringBuilder stringBuilder = new StringBuilder();
+		Iterator<BinaryTreeNode<T>> iterator = node.getPostOrderIterator();
+		while (iterator.hasNext()) {
+			stringBuilder.append(iterator.next().getValue());
+		}
+		return stringBuilder.toString();
+	}
+
+	public String preOrderTraverseTree() {
+		return this.preOrderTraverse(root);
 	}
 
 	/**
