@@ -31,7 +31,7 @@ public class BinaryTreeTest {
 		tree.insertValue(7);
 		tree.insertValue(8);
 		String result = tree.preOrderTraverseTree();
-		Assert.assertEquals(result, "12453");
+		Assert.assertEquals(result, "12345678");
 	}
 
 	@Test
