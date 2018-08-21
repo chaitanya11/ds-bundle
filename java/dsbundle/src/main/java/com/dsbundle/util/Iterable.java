@@ -1,7 +1,8 @@
 package com.dsbundle.util;
 
 public interface Iterable {
-  public Iterator getInOrderIterator();
-  public Iterator getPreOrderIterator();
-  public Iterator getPostOrderIterator();
+  Iterator getInOrderIterator();
+  Iterator getPreOrderIterator();
+  Iterator getPostOrderIterator();
+  Iterator getLevelOrderIterator();
 }

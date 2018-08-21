@@ -2,6 +2,7 @@ package com.dsbundle.util;
 
 import com.dsbundle.models.BinaryTreeNode;
 
+import java.util.NoSuchElementException;
 import java.util.Stack;
 
 /**
@@ -12,22 +13,33 @@ import java.util.Stack;
  */
 public class InOrderIterator<E extends BinaryTreeNode> implements Iterator<E> {
   private Stack<E> nodesStack;
-  private E curr;
 
   public InOrderIterator(final E root) {
     this.nodesStack = new Stack<>();
-    this.curr = root;
+    this.findNextLeaf(root);
   }
 
   @Override
   public boolean hasNext() {
-    return this.curr != null;
+    return !this.nodesStack.empty();
   }
+
 
   @Override
   public E next() {
-    E node = this.curr;
+    if (!hasNext()) {
+      throw new NoSuchElementException("No other nodes found.");
+    }
 
+    E node = this.nodesStack.pop();
+    findNextLeaf((E) node.getRight());
     return node;
+  }
+
+  private void findNextLeaf(E curr) {
+    while (curr != null) {
+      this.nodesStack.push(curr);
+      curr = (E) curr.getLeft();
+    }
   }
 }

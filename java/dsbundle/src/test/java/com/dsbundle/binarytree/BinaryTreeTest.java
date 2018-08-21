@@ -46,4 +46,27 @@ public class BinaryTreeTest {
 		Assert.assertEquals(result, "45231");
 	}
 
+	@Test
+	public void inOrderTest() {
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.setRoot(new BinaryTreeNode<>(1));
+		tree.getRoot().setLeft(new BinaryTreeNode<>(2));
+		tree.getRoot().setRight(new BinaryTreeNode<>(3));
+		tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(4));
+		tree.getRoot().getLeft().setRight(new BinaryTreeNode<>(5));
+		String result = tree.inOrderTraverse(tree.getRoot());
+		Assert.assertEquals(result, "42513");
+	}
+
+    @Test
+    public void levelOrderTest() {
+        BinaryTree<Integer> tree = new BinaryTree<Integer>();
+        tree.setRoot(new BinaryTreeNode<>(1));
+        tree.getRoot().setLeft(new BinaryTreeNode<>(2));
+        tree.getRoot().setRight(new BinaryTreeNode<>(3));
+        tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(4));
+        tree.getRoot().getLeft().setRight(new BinaryTreeNode<>(5));
+        String result = tree.levelOrderTraverse(tree.getRoot());
+        Assert.assertEquals(result, "12345");
+    }
 }

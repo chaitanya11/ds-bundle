@@ -1,10 +1,7 @@
 package com.dsbundle.models;
 
-import com.dsbundle.util.InOrderIterator;
+import com.dsbundle.util.*;
 import com.dsbundle.util.Iterable;
-import com.dsbundle.util.Iterator;
-import com.dsbundle.util.PostOrderIterator;
-import com.dsbundle.util.PreOrderIterator;
 
 /**
  * Model for BinaryTree Node containing left and right child.
@@ -73,5 +70,10 @@ public class BinaryTreeNode<T> implements Iterable {
 	@Override
 	public Iterator getPostOrderIterator() {
 		return new PostOrderIterator<BinaryTreeNode>(this);
+	}
+
+	@Override
+	public Iterator getLevelOrderIterator() {
+		return new LevelOrderIterator<BinaryTreeNode>(this);
 	}
 }

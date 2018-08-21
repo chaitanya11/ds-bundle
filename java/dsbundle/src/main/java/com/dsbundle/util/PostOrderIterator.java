@@ -2,6 +2,7 @@ package com.dsbundle.util;
 
 import com.dsbundle.models.BinaryTreeNode;
 
+import java.util.NoSuchElementException;
 import java.util.Stack;
 
 /**
@@ -26,6 +27,9 @@ public class PostOrderIterator<E extends BinaryTreeNode> implements Iterator<E> 
 
   @Override
   public E next() {
+    if (!hasNext()) {
+      throw new NoSuchElementException("No other nodes found.");
+    }
     E node = this.nodesStack.pop();
     if (!this.nodesStack.empty()) {
       E top = this.nodesStack.peek();

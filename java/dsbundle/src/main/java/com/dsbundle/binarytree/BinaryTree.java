@@ -57,6 +57,24 @@ public class BinaryTree<T> {
 		return stringBuilder.toString();
 	}
 
+	public String inOrderTraverse(BinaryTreeNode<T> node) {
+		final StringBuilder stringBuilder = new StringBuilder();
+		Iterator<BinaryTreeNode<T>> iterator = node.getInOrderIterator();
+		while (iterator.hasNext()) {
+			stringBuilder.append(iterator.next().getValue());
+		}
+		return stringBuilder.toString();
+	}
+
+	public String levelOrderTraverse(BinaryTreeNode<T> node) {
+		final StringBuilder stringBuilder = new StringBuilder();
+		Iterator<BinaryTreeNode<T>> iterator = node.getLevelOrderIterator();
+		while (iterator.hasNext()) {
+			stringBuilder.append(iterator.next().getValue());
+		}
+		return stringBuilder.toString();
+	}
+
 	public String preOrderTraverseTree() {
 		return this.preOrderTraverse(root);
 	}
