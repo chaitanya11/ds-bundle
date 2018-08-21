@@ -1,8 +1,8 @@
 package com.dsbundle.binarytree;
 
-import java.util.Random;
+import java.util.Iterator;
 
-import com.dsbundle.binarytree.model.BinaryTreeNode;
+import com.dsbundle.models.BinaryTreeNode;
 
 /**
  * Binary Tree implementation
@@ -27,35 +27,69 @@ public class BinaryTree<T> {
 	private BinaryTreeNode<T> insertNode(BinaryTreeNode<T> node, T value) {
 		if (node == null) {
 			node = new BinaryTreeNode<T>(value);
-			System.out.println("Inserting root:" + value);
-			return node;
-		}
-		if (node.getLeft() == null) {
-			node.setLeft(new BinaryTreeNode<T>(value));
-			System.out.println("Inserting value:" + value + "as left child of:" + node.getValue());
-			return node;
-		} else if (node.getRight() == null) {
-			node.setRight(new BinaryTreeNode<T>(value));
-			System.out.println("Inserting value:" + value + "as right child of:" + node.getValue());
-			return node;
-		}
-		if (new Random().nextInt(2) % 2 == 0) {
-			insertNode(node.getLeft(), value);
+			System.out.println("Inserting value:" + value);
+
 		} else {
-			insertNode(node.getLeft(), value);
+			if (node.getLeft() == null) {
+				node.setLeft(insertNode(node.getLeft(), value));
+			} else {
+				node.setRight(insertNode(node.getRight(), value));
+			}
 		}
 		return node;
 	}
 
-	private void traverse(BinaryTreeNode<T> node) {
-		if (node != null) {
-			System.out.println(node.getValue());
-			traverse(node.getLeft());
-			traverse(node.getRight());
+	private String preOrderTraverse(BinaryTreeNode<T> node) {
+		final StringBuilder stringBuilder = new StringBuilder();
+		Iterator<BinaryTreeNode<T>> iterator = node.getPreOrderIterator();
+		while (iterator.hasNext()) {
+			stringBuilder.append(iterator.next().getValue());
 		}
+		return stringBuilder.toString();
 	}
 
-	public void traverseTree() {
-		this.traverse(root);
+	public String postOrderTraverse(BinaryTreeNode<T> node) {
+		final StringBuilder stringBuilder = new StringBuilder();
+		Iterator<BinaryTreeNode<T>> iterator = node.getPostOrderIterator();
+		while (iterator.hasNext()) {
+			stringBuilder.append(iterator.next().getValue());
+		}
+		return stringBuilder.toString();
+	}
+
+	public String inOrderTraverse(BinaryTreeNode<T> node) {
+		final StringBuilder stringBuilder = new StringBuilder();
+		Iterator<BinaryTreeNode<T>> iterator = node.getInOrderIterator();
+		while (iterator.hasNext()) {
+			stringBuilder.append(iterator.next().getValue());
+		}
+		return stringBuilder.toString();
+	}
+
+	public String levelOrderTraverse(BinaryTreeNode<T> node) {
+		final StringBuilder stringBuilder = new StringBuilder();
+		Iterator<BinaryTreeNode<T>> iterator = node.getLevelOrderIterator();
+		while (iterator.hasNext()) {
+			stringBuilder.append(iterator.next().getValue());
+		}
+		return stringBuilder.toString();
+	}
+
+	public String preOrderTraverseTree() {
+		return this.preOrderTraverse(root);
+	}
+
+	/**
+	 * @return the root
+	 */
+	public BinaryTreeNode<T> getRoot() {
+		return root;
+	}
+
+	/**
+	 * @param root root
+	 */
+	public void setRoot(final BinaryTreeNode<T> root) {
+		this.root = root;
 	}
 }
