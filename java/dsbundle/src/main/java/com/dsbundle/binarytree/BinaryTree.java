@@ -1,6 +1,8 @@
 package com.dsbundle.binarytree;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.dsbundle.models.BinaryTreeNode;
 
@@ -9,26 +11,37 @@ import com.dsbundle.models.BinaryTreeNode;
  *
  */
 public class BinaryTree<T> {
+
+	/**
+	 * Root element of the BinaryTree
+	 */
 	private BinaryTreeNode<T> root;
 
+	/**
+	 * Default Constructor of the BinaryTree
+	 */
 	public BinaryTree() {
 		this.root = null;
 	}
 
 	/**
-	 * Inserts values randomly
+	 * This method inserts values into the BinaryTree
 	 * 
 	 * @param value
 	 */
-	public void insertValue(T value) {
+	public void insertValue(final T value) {
 		this.root = this.insertNode(root, value);
 	}
 
-	private BinaryTreeNode<T> insertNode(BinaryTreeNode<T> node, T value) {
+	/**
+	 * @param node
+	 * @param value
+	 * @return
+	 */
+	private BinaryTreeNode<T> insertNode(BinaryTreeNode<T> node, final T value) {
 		if (node == null) {
 			node = new BinaryTreeNode<T>(value);
-			System.out.println("Inserting value:" + value);
-
+			// System.out.println("Inserting value:" + value);
 		} else {
 			if (node.getLeft() == null) {
 				node.setLeft(insertNode(node.getLeft(), value));
@@ -39,47 +52,69 @@ public class BinaryTree<T> {
 		return node;
 	}
 
-	private String preOrderTraverse(BinaryTreeNode<T> node) {
-		final StringBuilder stringBuilder = new StringBuilder();
+	/**
+	 * This method returns the values of tree nodes in PreOrder manner.
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public List<T> preOrderTraverse(final BinaryTreeNode<T> node) {
+		final ArrayList<T> preOrder = new ArrayList<T>();
 		Iterator<BinaryTreeNode<T>> iterator = node.getPreOrderIterator();
 		while (iterator.hasNext()) {
-			stringBuilder.append(iterator.next().getValue());
+			preOrder.add(iterator.next().getValue());
 		}
-		return stringBuilder.toString();
-	}
-
-	public String postOrderTraverse(BinaryTreeNode<T> node) {
-		final StringBuilder stringBuilder = new StringBuilder();
-		Iterator<BinaryTreeNode<T>> iterator = node.getPostOrderIterator();
-		while (iterator.hasNext()) {
-			stringBuilder.append(iterator.next().getValue());
-		}
-		return stringBuilder.toString();
-	}
-
-	public String inOrderTraverse(BinaryTreeNode<T> node) {
-		final StringBuilder stringBuilder = new StringBuilder();
-		Iterator<BinaryTreeNode<T>> iterator = node.getInOrderIterator();
-		while (iterator.hasNext()) {
-			stringBuilder.append(iterator.next().getValue());
-		}
-		return stringBuilder.toString();
-	}
-
-	public String levelOrderTraverse(BinaryTreeNode<T> node) {
-		final StringBuilder stringBuilder = new StringBuilder();
-		Iterator<BinaryTreeNode<T>> iterator = node.getLevelOrderIterator();
-		while (iterator.hasNext()) {
-			stringBuilder.append(iterator.next().getValue());
-		}
-		return stringBuilder.toString();
-	}
-
-	public String preOrderTraverseTree() {
-		return this.preOrderTraverse(root);
+		return preOrder;
 	}
 
 	/**
+	 * This method returns the values of tree nodes in PostOrder manner.
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public List<T> postOrderTraverse(final BinaryTreeNode<T> node) {
+		final ArrayList<T> postOrder = new ArrayList<T>();
+		Iterator<BinaryTreeNode<T>> iterator = node.getPostOrderIterator();
+		while (iterator.hasNext()) {
+			postOrder.add(iterator.next().getValue());
+		}
+		return postOrder;
+	}
+
+	/**
+	 * This method returns the values of tree nodes in InOrder manner.
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public List<T> inOrderTraverse(final BinaryTreeNode<T> node) {
+		final ArrayList<T> inOrder = new ArrayList<T>();
+		Iterator<BinaryTreeNode<T>> iterator = node.getInOrderIterator();
+		while (iterator.hasNext()) {
+			inOrder.add(iterator.next().getValue());
+		}
+		return inOrder;
+	}
+
+	/**
+	 * This method returns the values of tree nodes in LevelOrder manner.
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public List<T> levelOrderTraverse(final BinaryTreeNode<T> node) {
+		final ArrayList<T> levelOrder = new ArrayList<T>();
+		Iterator<BinaryTreeNode<T>> iterator = node.getLevelOrderIterator();
+		while (iterator.hasNext()) {
+			levelOrder.add(iterator.next().getValue());
+		}
+		return levelOrder;
+	}
+
+	/**
+	 * This method returns the root of the BinaryTree
+	 * 
 	 * @return the root
 	 */
 	public BinaryTreeNode<T> getRoot() {
@@ -87,7 +122,10 @@ public class BinaryTree<T> {
 	}
 
 	/**
-	 * @param root root
+	 * This method sets the root of the BinaryTree
+	 * 
+	 * @param root
+	 *            root
 	 */
 	public void setRoot(final BinaryTreeNode<T> root) {
 		this.root = root;
