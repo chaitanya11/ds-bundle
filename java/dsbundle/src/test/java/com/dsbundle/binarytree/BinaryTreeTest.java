@@ -1,9 +1,10 @@
 package com.dsbundle.binarytree;
 
-import com.dsbundle.models.BinaryTreeNode;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.dsbundle.models.BinaryTreeNode;
 
 public class BinaryTreeTest {
 
@@ -69,4 +70,21 @@ public class BinaryTreeTest {
         String result = tree.levelOrderTraverse(tree.getRoot());
         Assert.assertEquals(result, "12345");
     }
+    
+	@Test
+	public void searchTest() {
+		BinaryTree<Apple> tree = new BinaryTree<Apple>();
+		tree.setRoot(new BinaryTreeNode<Apple>(new Apple(1, "Red")));
+		tree.getRoot().setLeft(new BinaryTreeNode<>(new Apple(2, "Green")));
+		tree.getRoot().setRight(new BinaryTreeNode<>(new Apple(3, "Red")));
+		tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(new Apple(4, "Red")));
+		tree.getRoot().getLeft().setRight(new BinaryTreeNode<>(new Apple(5, "Red")));
+		BinaryTreeNode<Apple> test = tree.searchValue(new BinaryTreeNode<Apple>(new Apple(1, "Red")));
+		Assert.assertEquals(1, test.getValue().getId());
+		test = tree.searchValue(new BinaryTreeNode<Apple>(new Apple(2, "Green")));
+		Assert.assertEquals(2, test.getValue().getId());
+		test = tree.searchValue(new BinaryTreeNode<Apple>(new Apple(22, "Red")));
+		Assert.assertNull(test);
+	}
+
 }
