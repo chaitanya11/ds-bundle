@@ -59,31 +59,30 @@ public class BinaryTreeTest {
 		Assert.assertEquals(result, "42513");
 	}
 
-    @Test
-    public void levelOrderTest() {
-        BinaryTree<Integer> tree = new BinaryTree<Integer>();
-        tree.setRoot(new BinaryTreeNode<>(1));
-        tree.getRoot().setLeft(new BinaryTreeNode<>(2));
-        tree.getRoot().setRight(new BinaryTreeNode<>(3));
-        tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(4));
-        tree.getRoot().getLeft().setRight(new BinaryTreeNode<>(5));
-        String result = tree.levelOrderTraverse(tree.getRoot());
-        Assert.assertEquals(result, "12345");
-    }
-    
+	@Test
+	public void levelOrderTest() {
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.setRoot(new BinaryTreeNode<>(1));
+		tree.getRoot().setLeft(new BinaryTreeNode<>(2));
+		tree.getRoot().setRight(new BinaryTreeNode<>(3));
+		tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(4));
+		tree.getRoot().getLeft().setRight(new BinaryTreeNode<>(5));
+		String result = tree.levelOrderTraverse(tree.getRoot());
+		Assert.assertEquals(result, "12345");
+	}
+
 	@Test
 	public void searchTest() {
-		BinaryTree<Apple> tree = new BinaryTree<Apple>();
-		tree.setRoot(new BinaryTreeNode<Apple>(new Apple(1, "Red")));
-		tree.getRoot().setLeft(new BinaryTreeNode<>(new Apple(2, "Green")));
-		tree.getRoot().setRight(new BinaryTreeNode<>(new Apple(3, "Red")));
-		tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(new Apple(4, "Red")));
-		tree.getRoot().getLeft().setRight(new BinaryTreeNode<>(new Apple(5, "Red")));
-		BinaryTreeNode<Apple> test = tree.searchValue(new BinaryTreeNode<Apple>(new Apple(1, "Red")));
-		Assert.assertEquals(1, test.getValue().getId());
-		test = tree.searchValue(new BinaryTreeNode<Apple>(new Apple(2, "Green")));
-		Assert.assertEquals(2, test.getValue().getId());
-		test = tree.searchValue(new BinaryTreeNode<Apple>(new Apple(22, "Red")));
+		BinaryTree<Fruit> tree = new BinaryTree<Fruit>();
+		tree.setRoot(new BinaryTreeNode<Fruit>(new Fruit("Apple", 12F)));
+		tree.getRoot().setLeft(new BinaryTreeNode<>(new Fruit("Mango", 10.5F)));
+		tree.getRoot().setRight(new BinaryTreeNode<>(new Fruit("Banana", 20F)));
+		tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(new Fruit("Orange", 7F)));
+		BinaryTreeNode<Fruit> test = tree.searchValue(new BinaryTreeNode<Fruit>(new Fruit("Orange", 7F)));
+		Assert.assertEquals("Orange", test.getValue().getName());
+		test = tree.searchValue(new BinaryTreeNode<Fruit>(new Fruit("Mango", 10.5F)));
+		Assert.assertEquals("Mango", test.getValue().getName());
+		test = tree.searchValue(new BinaryTreeNode<Fruit>(new Fruit("Apple", 9F)));
 		Assert.assertNull(test);
 	}
 

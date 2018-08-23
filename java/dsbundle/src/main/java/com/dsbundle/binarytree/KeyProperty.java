@@ -6,12 +6,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to denote the key which has to be considered for the node comparision.
- * Currently only one field can be set as the identifier. TODO for more than one field. 
+ * Annotation to denote the key which has to be considered for the node
+ * comparision.
  *
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@interface Identifier {
+@interface KeyProperty {
 
 }

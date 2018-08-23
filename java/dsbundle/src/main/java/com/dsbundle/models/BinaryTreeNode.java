@@ -19,7 +19,7 @@ public class BinaryTreeNode<T> extends BaseNode<T> implements Iterable {
 	public BinaryTreeNode(T value) {
 		super(value);
 	}
-	
+
 	/**
 	 * @return the left
 	 */
@@ -70,7 +70,6 @@ public class BinaryTreeNode<T> extends BaseNode<T> implements Iterable {
 
 	@Override
 	public String toString() {
-		return super.toString()+"BinaryTreeNode [left=" + left + ", right=" + right + "]";
+		return "BinaryTreeNode [left=" + left + ", right=" + right + "]";
 	}
-	
 }

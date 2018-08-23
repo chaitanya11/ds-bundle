@@ -3,8 +3,7 @@ package com.dsbundle.binarytree;
 import java.lang.reflect.Field;
 
 /**
- * Base class for the tree node.
- * Overrides the equals method.
+ * Base class for the tree node. Overrides the equals method.
  *
  * @param <T>
  */
@@ -25,12 +24,16 @@ public abstract class BaseNode<T> {
 	}
 
 	public boolean equals(Object value) {
+		if (value == null)
+			return false;
 		return getIdentifierValue(this.value).equals(getIdentifierValue((T) value));
 	}
 
 	/**
 	 * Returns the value of the field which is annotated with @Identifier annotation
-	 * Currently searches for only one field. Can be extended to support for multiple fields.
+	 * Currently searches for only one field. Can be extended to support for
+	 * multiple fields.
+	 * 
 	 * @param value
 	 * @return
 	 */
@@ -38,14 +41,14 @@ public abstract class BaseNode<T> {
 		Field[] fields = value.getClass().getDeclaredFields();
 		Object result = new Object();
 		for (Field field : fields) {
-			if (field.isAnnotationPresent(Identifier.class)) {
+			if (field.isAnnotationPresent(KeyProperty.class)) {
 				try {
 					field.setAccessible(true);
 					result = field.get(value);
 				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
+					throw new RuntimeException(e);
 				} catch (IllegalAccessException e) {
-					e.printStackTrace();
+					throw new RuntimeException(e);
 				}
 			}
 		}
