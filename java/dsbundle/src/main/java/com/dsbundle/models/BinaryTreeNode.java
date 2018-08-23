@@ -49,23 +49,23 @@ public class BinaryTreeNode<T> extends BaseNode<T> implements Iterable {
 	}
 
 	@Override
-	public Iterator getInOrderIterator() {
-		return new InOrderIterator<BinaryTreeNode>(this);
+	public Iterator<BinaryTreeNode<T>> getInOrderIterator() {
+		return new InOrderIterator<BinaryTreeNode<T>>(this);
 	}
 
 	@Override
-	public Iterator getPreOrderIterator() {
-		return new PreOrderIterator<BinaryTreeNode>(this);
+	public Iterator<BinaryTreeNode<T>> getPreOrderIterator() {
+		return new PreOrderIterator<BinaryTreeNode<T>>(this);
 	}
 
 	@Override
-	public Iterator getPostOrderIterator() {
-		return new PostOrderIterator<BinaryTreeNode>(this);
+	public Iterator<BinaryTreeNode<T>> getPostOrderIterator() {
+		return new PostOrderIterator<BinaryTreeNode<T>>(this);
 	}
 
 	@Override
-	public Iterator getLevelOrderIterator() {
-		return new LevelOrderIterator<BinaryTreeNode>(this);
+	public Iterator<BinaryTreeNode<T>> getLevelOrderIterator() {
+		return new LevelOrderIterator<BinaryTreeNode<T>>(this);
 	}
 
 	@Override
