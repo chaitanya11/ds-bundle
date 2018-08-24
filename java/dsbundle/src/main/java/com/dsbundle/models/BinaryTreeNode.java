@@ -1,32 +1,23 @@
 package com.dsbundle.models;
 
-import com.dsbundle.util.*;
+import com.dsbundle.binarytree.BaseNode;
+import com.dsbundle.util.InOrderIterator;
 import com.dsbundle.util.Iterable;
+import com.dsbundle.util.Iterator;
+import com.dsbundle.util.LevelOrderIterator;
+import com.dsbundle.util.PostOrderIterator;
+import com.dsbundle.util.PreOrderIterator;
 
 /**
  * Model for BinaryTree Node containing left and right child.
  *
  */
-public class BinaryTreeNode<T> implements Iterable {
-	private T value;
+public class BinaryTreeNode<T> extends BaseNode<T> implements Iterable {
+
 	private BinaryTreeNode<T> left, right;
 
 	public BinaryTreeNode(T value) {
-		this.value = value;
-	}
-
-	/**
-	 * @return the value
-	 */
-	public T getValue() {
-		return value;
-	}
-
-	/**
-	 * @param value value
-	 */
-	public void setValue(final T value) {
-		this.value = value;
+		super(value);
 	}
 
 	/**
@@ -58,22 +49,27 @@ public class BinaryTreeNode<T> implements Iterable {
 	}
 
 	@Override
-	public Iterator getInOrderIterator() {
-		return new InOrderIterator<BinaryTreeNode>(this);
+	public Iterator<BinaryTreeNode<T>> getInOrderIterator() {
+		return new InOrderIterator<BinaryTreeNode<T>>(this);
 	}
 
 	@Override
-	public Iterator getPreOrderIterator() {
-		return new PreOrderIterator<BinaryTreeNode>(this);
+	public Iterator<BinaryTreeNode<T>> getPreOrderIterator() {
+		return new PreOrderIterator<BinaryTreeNode<T>>(this);
 	}
 
 	@Override
-	public Iterator getPostOrderIterator() {
-		return new PostOrderIterator<BinaryTreeNode>(this);
+	public Iterator<BinaryTreeNode<T>> getPostOrderIterator() {
+		return new PostOrderIterator<BinaryTreeNode<T>>(this);
 	}
 
 	@Override
-	public Iterator getLevelOrderIterator() {
-		return new LevelOrderIterator<BinaryTreeNode>(this);
+	public Iterator<BinaryTreeNode<T>> getLevelOrderIterator() {
+		return new LevelOrderIterator<BinaryTreeNode<T>>(this);
+	}
+
+	@Override
+	public String toString() {
+		return "BinaryTreeNode [left=" + left + ", right=" + right + "]";
 	}
 }

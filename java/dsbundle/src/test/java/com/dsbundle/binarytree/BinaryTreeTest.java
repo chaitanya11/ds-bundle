@@ -1,9 +1,10 @@
 package com.dsbundle.binarytree;
 
-import com.dsbundle.models.BinaryTreeNode;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.dsbundle.models.BinaryTreeNode;
 
 public class BinaryTreeTest {
 
@@ -58,15 +59,31 @@ public class BinaryTreeTest {
 		Assert.assertEquals(result, "42513");
 	}
 
-    @Test
-    public void levelOrderTest() {
-        BinaryTree<Integer> tree = new BinaryTree<Integer>();
-        tree.setRoot(new BinaryTreeNode<>(1));
-        tree.getRoot().setLeft(new BinaryTreeNode<>(2));
-        tree.getRoot().setRight(new BinaryTreeNode<>(3));
-        tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(4));
-        tree.getRoot().getLeft().setRight(new BinaryTreeNode<>(5));
-        String result = tree.levelOrderTraverse(tree.getRoot());
-        Assert.assertEquals(result, "12345");
-    }
+	@Test
+	public void levelOrderTest() {
+		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		tree.setRoot(new BinaryTreeNode<>(1));
+		tree.getRoot().setLeft(new BinaryTreeNode<>(2));
+		tree.getRoot().setRight(new BinaryTreeNode<>(3));
+		tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(4));
+		tree.getRoot().getLeft().setRight(new BinaryTreeNode<>(5));
+		String result = tree.levelOrderTraverse(tree.getRoot());
+		Assert.assertEquals(result, "12345");
+	}
+
+	@Test
+	public void searchTest() {
+		BinaryTree<Fruit> tree = new BinaryTree<Fruit>();
+		tree.setRoot(new BinaryTreeNode<Fruit>(new Fruit("Apple", 12F)));
+		tree.getRoot().setLeft(new BinaryTreeNode<>(new Fruit("Mango", 10.5F)));
+		tree.getRoot().setRight(new BinaryTreeNode<>(new Fruit("Banana", 20F)));
+		tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(new Fruit("Orange", 7F)));
+		BinaryTreeNode<Fruit> test = tree.searchValue(new BinaryTreeNode<Fruit>(new Fruit("Orange", 7F)));
+		Assert.assertEquals("Orange", test.getValue().getName());
+		test = tree.searchValue(new BinaryTreeNode<Fruit>(new Fruit("Mango", 10.5F)));
+		Assert.assertEquals("Mango", test.getValue().getName());
+		test = tree.searchValue(new BinaryTreeNode<Fruit>(new Fruit("Apple", 9F)));
+		Assert.assertNull(test);
+	}
+
 }
