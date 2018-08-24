@@ -73,4 +73,19 @@ public class BinaryTreeTest {
 		List<Integer> levelOrder = tree.levelOrderTraverse(tree.getRoot());
 		Assert.assertEquals(levelOrder, Arrays.asList(new Integer[] {1,2,3,4,5}));
 	}
+
+	@Test
+	public void searchTest() {
+		BinaryTree<Fruit> tree = new BinaryTree<Fruit>();
+		tree.setRoot(new BinaryTreeNode<Fruit>(new Fruit("Apple", 12F)));
+		tree.getRoot().setLeft(new BinaryTreeNode<>(new Fruit("Mango", 10.5F)));
+		tree.getRoot().setRight(new BinaryTreeNode<>(new Fruit("Banana", 20F)));
+		tree.getRoot().getLeft().setLeft(new BinaryTreeNode<>(new Fruit("Orange", 7F)));
+		BinaryTreeNode<Fruit> test = tree.searchValue(new BinaryTreeNode<Fruit>(new Fruit("Orange", 7F)));
+		Assert.assertEquals("Orange", test.getValue().getName());
+		test = tree.searchValue(new BinaryTreeNode<Fruit>(new Fruit("Mango", 10.5F)));
+		Assert.assertEquals("Mango", test.getValue().getName());
+		test = tree.searchValue(new BinaryTreeNode<Fruit>(new Fruit("Apple", 9F)));
+		Assert.assertNull(test);
+	}
 }

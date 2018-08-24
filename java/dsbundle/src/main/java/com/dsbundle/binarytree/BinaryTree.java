@@ -130,4 +130,38 @@ public class BinaryTree<T> {
 	public void setRoot(final BinaryTreeNode<T> root) {
 		this.root = root;
 	}
+
+	/**
+	 * Searches for the given node in the tree returns the node if found and null,
+	 * if not present.
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public BinaryTreeNode<T> searchValue(BinaryTreeNode<T> value) {
+		return this.searchForValue(root, value);
+	}
+
+	/**
+	 * Searches for the given node in the tree returns the node if found and null,
+	 * if not present.
+	 * 
+	 * @param node
+	 * @param value
+	 * @return
+	 */
+	private BinaryTreeNode<T> searchForValue(BinaryTreeNode<T> node, BinaryTreeNode<T> value) {
+		if (node != null) {
+			if (value.equals(node.getValue())) {
+				return node;
+			} else {
+				BinaryTreeNode<T> result = searchForValue(node.getLeft(), value);
+				if (result == null) {
+					result = searchForValue(node.getRight(), value);
+				}
+				return result;
+			}
+		}
+		return null;
+	}
 }
