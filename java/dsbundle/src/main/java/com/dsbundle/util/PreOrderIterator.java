@@ -11,7 +11,7 @@ import java.util.Stack;
  * 3. Traverse the right subtree, i.e., call Preorder(right-subtree)
  * @param <E>
  */
-public class PreOrderIterator<E extends BinaryTreeNode<?>> implements Iterator<E> {
+public class PreOrderIterator<E extends BinaryTreeNode> implements Iterator<E> {
   private Stack<E> nodesStack;
   private E curr;
 
