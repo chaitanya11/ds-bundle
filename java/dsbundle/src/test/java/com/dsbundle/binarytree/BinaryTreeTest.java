@@ -88,4 +88,19 @@ public class BinaryTreeTest {
 		test = tree.searchValue(new BinaryTreeNode<Fruit>(new Fruit("Apple", 9F)));
 		Assert.assertNull(test);
 	}
+
+	@Test
+	public void insertAlltest() {
+		BinaryTree<Fruit> tree = new BinaryTree<>();
+		List<Fruit> fruits = Arrays.asList(new Fruit[] {
+				new Fruit("Apple", 12F),
+				new Fruit("Banana", 12F),
+				new Fruit("mango", 10F),
+				new Fruit("Orange", 5F),
+				new Fruit("Grapes", 20F)
+		});
+		tree.insertAll(fruits);
+		List<Fruit> insertedFruits = tree.inOrderTraverse(tree.getRoot());
+		Assert.assertEquals(insertedFruits.size(), fruits.size());
+	}
 }

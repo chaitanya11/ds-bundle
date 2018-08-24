@@ -52,6 +52,16 @@ public class BinaryTree<T> {
 		return node;
 	}
 
+    /**
+     * Inserts all nodes in single stretch.
+     * @param nodes
+     */
+	public void insertAll(final List<T> nodes) {
+        Iterator<T> nodesIterator = nodes.iterator();
+        while(nodesIterator.hasNext()) {
+            this.insertValue(nodesIterator.next());
+        }
+    }
 	/**
 	 * This method returns the values of tree nodes in PreOrder manner.
 	 * 
