@@ -1,24 +1,22 @@
 package com.dsbundle.models;
 
-/* bst Node containing left and right child of current node and key value */
-public class BSTNode {
-	int key;
-	BSTNode left, right;
+import com.dsbundle.util.InOrderIterator;
+import com.dsbundle.util.Iterator;
+import com.dsbundle.util.LevelOrderIterator;
+import com.dsbundle.util.PostOrderIterator;
+import com.dsbundle.util.PreOrderIterator;
 
-	public BSTNode(int item) {
-		key = item;
+/* bst Node containing left and right child of current node and key value */
+public class BSTNode<T extends Comparable<T>> extends BaseNode<T> {
+	BSTNode<T> left, right;
+
+	public BSTNode(T item) {
+		super(item);
 		left = right = null;
 	}
 
-	public int getKey() {
-		return key;
-	}
-
-	public void setKey(int key) {
-		this.key = key;
-	}
-
-	public BSTNode getLeft() {
+	@Override
+	public BSTNode<T> getLeft() {
 		return left;
 	}
 
@@ -26,12 +24,32 @@ public class BSTNode {
 		this.left = left;
 	}
 
-	public BSTNode getRight() {
+	@Override
+	public BSTNode<T> getRight() {
 		return right;
 	}
 
 	public void setRight(BSTNode right) {
 		this.right = right;
 	}
-	
+
+	@Override
+	public Iterator getInOrderIterator() {
+		return new InOrderIterator<BSTNode<T>>(this);
+	}
+
+	@Override
+	public Iterator getPreOrderIterator() {
+		return new PreOrderIterator<BSTNode<T>>(this);
+	}
+
+	@Override
+	public Iterator getPostOrderIterator() {
+		return new PostOrderIterator<BSTNode<T>>(this);
+	}
+
+	@Override
+	public Iterator getLevelOrderIterator() {
+		return new LevelOrderIterator<BSTNode<T>>(this);
+	}
 }
