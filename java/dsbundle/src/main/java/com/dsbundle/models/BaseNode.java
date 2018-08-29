@@ -45,9 +45,11 @@ public abstract class BaseNode<T extends Comparable<T>> implements Comparable<Ba
 	 */
 	public Object getIdentifierValue(T value) {
 		Field[] fields = value.getClass().getDeclaredFields();
+		boolean isAnnotationPresent=false;
 		Object result = new Object();
 		for (Field field : fields) {
 			if (field.isAnnotationPresent(KeyProperty.class)) {
+				isAnnotationPresent = true;
 				try {
 					field.setAccessible(true);
 					result = field.get(value);
@@ -58,16 +60,16 @@ public abstract class BaseNode<T extends Comparable<T>> implements Comparable<Ba
 				}
 			}
 		}
-		return result;
-	}
-
-	@Override
-	public String toString() {
-		return "BaseNode [value=" + value + "]";
+		return isAnnotationPresent?result:value;
 	}
 
 	@Override
 	public int compareTo(final BaseNode<T> o) {
 		return value.compareTo(o.getValue());
+	}
+	
+	@Override
+	public String toString() {
+		return "BaseNode [value=" + value + "]";
 	}
 }
