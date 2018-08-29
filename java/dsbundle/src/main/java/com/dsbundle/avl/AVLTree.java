@@ -2,9 +2,9 @@ package com.dsbundle.avl;
 
 
 import com.dsbundle.models.AVLNode;
-import com.dsbundle.util.Iterator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class AVLTree<T extends Comparable<T>> {
@@ -89,6 +89,13 @@ public class AVLTree<T extends Comparable<T>> {
         this.root = insert(root, new AVLNode<T>(value));
     }
 
+    public void insertAll(final List<T> values) {
+        Iterator<T> nodesIterator = values.iterator();
+        while(nodesIterator.hasNext()) {
+            this.insert(nodesIterator.next());
+        }
+    }
+
     private AVLNode<T> insert(AVLNode<T> node, AVLNode<T> newNode) {
         /* 1.  Perform the normal BST insertion */
         if (node == null)
@@ -146,8 +153,7 @@ public class AVLTree<T extends Comparable<T>> {
         final List<T> preOrderList = new ArrayList<>();
         final Iterator<AVLNode<T>> iterator = node.getPreOrderIterator();
         while(iterator.hasNext()) {
-            System.out.println(iterator.next().getClass());
-//            preOrderList.add(iterator.next());
+            preOrderList.add(iterator.next().getValue());
         }
         return preOrderList;
     }

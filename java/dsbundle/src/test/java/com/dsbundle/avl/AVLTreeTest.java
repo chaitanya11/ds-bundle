@@ -1,8 +1,12 @@
 package com.dsbundle.avl;
 
 import com.dsbundle.models.AVLNode;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class AVLTreeTest {
     private static AVLTree<Integer> avlTree;
@@ -33,14 +37,16 @@ public class AVLTreeTest {
 
     @Test
     public void insert() {
-//        avlTree.insert(20);
-        avlTree.preOrderTraversal(avlTree.getRoot());
+        avlTree.insert(20);
+        List<Integer> values = avlTree.preOrderTraversal(avlTree.getRoot());
+        Assert.assertEquals(values, Arrays.asList(new Integer[] {9, 1, 0, -1, 5, 2, 6, 11, 10, 20}));
     }
 
     @Test
     public void delete() {
         avlTree.deleteNode(avlTree.getRoot(), new AVLNode<Integer>(20));
-//        avlTree.preOrderTraversal(avlTree.root);
+        List<Integer> values = avlTree.preOrderTraversal(avlTree.getRoot());
+        Assert.assertEquals(values, Arrays.asList(new Integer[] {9, 1, 0, -1, 5, 2, 6, 10, 11}));
     }
 
     
