@@ -1,6 +1,6 @@
 package com.dsbundle.util;
 
-import com.dsbundle.models.BinaryTreeNode;
+import com.dsbundle.models.BaseNode;
 
 import java.util.NoSuchElementException;
 import java.util.Stack;
@@ -11,7 +11,7 @@ import java.util.Stack;
  * 3. Traverse the right subtree, i.e., call Inorder(right-subtree)
  * @param <E>
  */
-public class InOrderIterator<E extends BinaryTreeNode> implements Iterator<E> {
+public class InOrderIterator<E extends BaseNode> implements Iterator<E> {
   private Stack<E> nodesStack;
 
   public InOrderIterator(final E root) {

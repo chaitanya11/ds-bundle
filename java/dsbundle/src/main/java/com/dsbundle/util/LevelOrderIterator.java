@@ -1,5 +1,6 @@
 package com.dsbundle.util;
 
+import com.dsbundle.models.BaseNode;
 import com.dsbundle.models.BinaryTreeNode;
 
 import java.util.NoSuchElementException;
@@ -13,7 +14,7 @@ import java.util.Stack;
  * as the search tree is broadened as much as possible on each depth before going to the next depth.
  * @param <E>
  */
-public class LevelOrderIterator<E extends BinaryTreeNode> implements Iterator {
+public class LevelOrderIterator<E extends BaseNode> implements Iterator {
   private Stack<E> nodesStack;
 
   public LevelOrderIterator(final E root) {
