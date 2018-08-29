@@ -1,8 +1,6 @@
 package com.dsbundle.models;
 
-import com.dsbundle.binarytree.BaseNode;
 import com.dsbundle.util.InOrderIterator;
-import com.dsbundle.util.Iterable;
 import com.dsbundle.util.Iterator;
 import com.dsbundle.util.LevelOrderIterator;
 import com.dsbundle.util.PostOrderIterator;
@@ -12,7 +10,7 @@ import com.dsbundle.util.PreOrderIterator;
  * Model for BinaryTree Node containing left and right child.
  *
  */
-public class BinaryTreeNode<T> extends BaseNode<T> implements Iterable {
+public class BinaryTreeNode<T extends Comparable<T>> extends BaseNode<T> {
 
 	private BinaryTreeNode<T> left, right;
 
@@ -23,6 +21,7 @@ public class BinaryTreeNode<T> extends BaseNode<T> implements Iterable {
 	/**
 	 * @return the left
 	 */
+	@Override
 	public BinaryTreeNode<T> getLeft() {
 		return left;
 	}
@@ -37,6 +36,7 @@ public class BinaryTreeNode<T> extends BaseNode<T> implements Iterable {
 	/**
 	 * @return the right
 	 */
+	@Override
 	public BinaryTreeNode<T> getRight() {
 		return right;
 	}
