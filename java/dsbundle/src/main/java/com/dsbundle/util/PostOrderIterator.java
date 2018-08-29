@@ -1,5 +1,6 @@
 package com.dsbundle.util;
 
+import com.dsbundle.models.BaseNode;
 import com.dsbundle.models.BinaryTreeNode;
 
 import java.util.NoSuchElementException;
@@ -11,7 +12,7 @@ import java.util.Stack;
  * 3. Visit the root.
  * @param <E>
  */
-public class PostOrderIterator<E extends BinaryTreeNode> implements Iterator<E> {
+public class PostOrderIterator<E extends BaseNode> implements Iterator<E> {
   private Stack<E> nodesStack;
 
   public PostOrderIterator(final E root) {

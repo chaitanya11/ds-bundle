@@ -2,7 +2,7 @@ package com.dsbundle.binarytree;
 
 import com.dsbundle.annotations.KeyProperty;
 
-public class Fruit {
+public class Fruit implements Comparable<Fruit> {
 	private String name;
 	@KeyProperty
 	private Float cost;
@@ -31,5 +31,10 @@ public class Fruit {
 	@Override
 	public String toString() {
 		return "Friut [name=" + name + ", cost=" + cost + "]";
+	}
+
+	@Override
+	public int compareTo(final Fruit o) {
+		return cost.compareTo(o.getCost());
 	}
 }

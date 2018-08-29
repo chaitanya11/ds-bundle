@@ -1,5 +1,7 @@
 package com.dsbundle.util;
 
 
-public interface Iterator<E> extends java.util.Iterator {
+import com.dsbundle.models.BaseNode;
+
+public interface Iterator<E extends BaseNode> extends java.util.Iterator {
 }

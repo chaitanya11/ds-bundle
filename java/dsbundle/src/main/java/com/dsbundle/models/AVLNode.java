@@ -1,43 +1,80 @@
 package com.dsbundle.models;
 
-public class AVLNode {
-    private int key, height;
-    private AVLNode left, right;
+import com.dsbundle.util.InOrderIterator;
+import com.dsbundle.util.Iterator;
+import com.dsbundle.util.LevelOrderIterator;
+import com.dsbundle.util.PostOrderIterator;
+import com.dsbundle.util.PreOrderIterator;
 
-    public AVLNode(int d) {
-        key = d;
+public class AVLNode<T extends Comparable<T>> extends BaseNode<T> {
+    private int height;
+    private AVLNode<T> left, right;
+
+    public AVLNode(T value) {
+        super(value);
         height = 1;
     }
 
-    public int getKey() {
-        return key;
-    }
-
-    public void setKey(int key) {
-        this.key = key;
-    }
-
+    /**
+     * @return the height
+     */
     public int getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    /**
+     * @param height height
+     */
+    public void setHeight(final int height) {
         this.height = height;
     }
 
-    public AVLNode getLeft() {
+    /**
+     * @return the left
+     */
+    @Override
+    public AVLNode<T> getLeft() {
         return left;
     }
 
-    public void setLeft(AVLNode left) {
+    /**
+     * @param left left
+     */
+    public void setLeft(final AVLNode<T> left) {
         this.left = left;
     }
 
-    public AVLNode getRight() {
+    /**
+     * @return the right
+     */
+    @Override
+    public AVLNode<T> getRight() {
         return right;
     }
 
-    public void setRight(AVLNode right) {
+    /**
+     * @param right right
+     */
+    public void setRight(final AVLNode<T> right) {
         this.right = right;
+    }
+
+    @Override
+    public Iterator<AVLNode<T>> getInOrderIterator() {
+        return new InOrderIterator<AVLNode<T>>(this);
+    }
+
+    @Override
+    public Iterator<AVLNode<T>> getPreOrderIterator() {
+        return new PreOrderIterator<AVLNode<T>>(this);
+    }
+    @Override
+    public Iterator<AVLNode<T>> getPostOrderIterator() {
+        return new PostOrderIterator<AVLNode<T>>(this);
+    }
+
+    @Override
+    public Iterator<AVLNode<T>> getLevelOrderIterator() {
+        return new LevelOrderIterator<AVLNode<T>>(this);
     }
 }

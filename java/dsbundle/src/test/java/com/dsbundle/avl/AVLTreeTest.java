@@ -1,14 +1,15 @@
 package com.dsbundle.avl;
 
+import com.dsbundle.models.AVLNode;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class AVLTreeTest {
-    private static AVLTree avlTree;
+    private static AVLTree<Integer> avlTree;
 
     @BeforeClass
     public static void createTree() {
-        avlTree = new AVLTree();
+        avlTree = new AVLTree<Integer>();
         /* The constructed AVL Tree would be
            9
           /  \
@@ -18,28 +19,28 @@ public class AVLTreeTest {
         /    /  \
         -1   2    6
          */
-        avlTree.root = avlTree.insert(avlTree.root, 9);
-        avlTree.root = avlTree.insert(avlTree.root, 5);
-        avlTree.root = avlTree.insert(avlTree.root, 10);
-        avlTree.root = avlTree.insert(avlTree.root, 0);
-        avlTree.root = avlTree.insert(avlTree.root, 6);
-        avlTree.root = avlTree.insert(avlTree.root, 11);
-        avlTree.root = avlTree.insert(avlTree.root, -1);
-        avlTree.root = avlTree.insert(avlTree.root, 1);
-        avlTree.root = avlTree.insert(avlTree.root, 2);
+        avlTree.insert(9);
+        avlTree.insert(5);
+        avlTree.insert(10);
+        avlTree.insert(0);
+        avlTree.insert(6);
+        avlTree.insert(11);
+        avlTree.insert(-1);
+        avlTree.insert(1);
+        avlTree.insert(2);
     }
 
 
     @Test
     public void insert() {
-        avlTree.insert(avlTree.root, 20);
-        avlTree.preOrder(avlTree.root);
+//        avlTree.insert(20);
+        avlTree.preOrderTraversal(avlTree.getRoot());
     }
 
     @Test
     public void delete() {
-        avlTree.deleteNode(avlTree.root, 20);
-        avlTree.preOrder(avlTree.root);
+        avlTree.deleteNode(avlTree.getRoot(), new AVLNode<Integer>(20));
+//        avlTree.preOrderTraversal(avlTree.root);
     }
 
     

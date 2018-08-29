@@ -10,7 +10,7 @@ import com.dsbundle.models.BinaryTreeNode;
  * Binary Tree implementation
  *
  */
-public class BinaryTree<T> {
+public class BinaryTree<T extends Comparable<T>> {
 
 	/**
 	 * Root element of the BinaryTree
@@ -70,7 +70,7 @@ public class BinaryTree<T> {
 	 */
 	public List<T> preOrderTraverse(final BinaryTreeNode<T> node) {
 		final ArrayList<T> preOrder = new ArrayList<T>();
-		Iterator<BinaryTreeNode<T>> iterator = node.getPreOrderIterator();
+		final Iterator<BinaryTreeNode<T>> iterator = node.getPreOrderIterator();
 		while (iterator.hasNext()) {
 			preOrder.add(iterator.next().getValue());
 		}
@@ -85,7 +85,7 @@ public class BinaryTree<T> {
 	 */
 	public List<T> postOrderTraverse(final BinaryTreeNode<T> node) {
 		final ArrayList<T> postOrder = new ArrayList<T>();
-		Iterator<BinaryTreeNode<T>> iterator = node.getPostOrderIterator();
+		final Iterator<BinaryTreeNode<T>> iterator = node.getPostOrderIterator();
 		while (iterator.hasNext()) {
 			postOrder.add(iterator.next().getValue());
 		}
@@ -100,7 +100,7 @@ public class BinaryTree<T> {
 	 */
 	public List<T> inOrderTraverse(final BinaryTreeNode<T> node) {
 		final ArrayList<T> inOrder = new ArrayList<T>();
-		Iterator<BinaryTreeNode<T>> iterator = node.getInOrderIterator();
+		final Iterator<BinaryTreeNode<T>> iterator = node.getInOrderIterator();
 		while (iterator.hasNext()) {
 			inOrder.add(iterator.next().getValue());
 		}
@@ -115,7 +115,7 @@ public class BinaryTree<T> {
 	 */
 	public List<T> levelOrderTraverse(final BinaryTreeNode<T> node) {
 		final ArrayList<T> levelOrder = new ArrayList<T>();
-		Iterator<BinaryTreeNode<T>> iterator = node.getLevelOrderIterator();
+		final Iterator<BinaryTreeNode<T>> iterator = node.getLevelOrderIterator();
 		while (iterator.hasNext()) {
 			levelOrder.add(iterator.next().getValue());
 		}
@@ -148,7 +148,7 @@ public class BinaryTree<T> {
 	 * @param value
 	 * @return
 	 */
-	public BinaryTreeNode<T> searchValue(BinaryTreeNode<T> value) {
+	public BinaryTreeNode<T> searchValue(final BinaryTreeNode<T> value) {
 		return this.searchForValue(root, value);
 	}
 
@@ -160,7 +160,7 @@ public class BinaryTree<T> {
 	 * @param value
 	 * @return
 	 */
-	private BinaryTreeNode<T> searchForValue(BinaryTreeNode<T> node, BinaryTreeNode<T> value) {
+	private BinaryTreeNode<T> searchForValue(final BinaryTreeNode<T> node, final BinaryTreeNode<T> value) {
 		if (node != null) {
 			if (value.equals(node.getValue())) {
 				return node;
