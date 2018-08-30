@@ -70,6 +70,6 @@ public class BinaryTreeNode<T extends Comparable<T>> extends BaseNode<T> {
 
 	@Override
 	public String toString() {
-		return "BinaryTreeNode [left=" + left + ", right=" + right + "]";
+		return super.toString() + "BinaryTreeNode [left=" + left + ", right=" + right + "]";
 	}
 }

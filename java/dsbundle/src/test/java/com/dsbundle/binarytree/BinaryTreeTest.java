@@ -1,5 +1,6 @@
 package com.dsbundle.binarytree;
 
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -88,7 +89,7 @@ public class BinaryTreeTest {
 		test = tree.searchValue(new BinaryTreeNode<Fruit>(new Fruit("Apple", 9F)));
 		Assert.assertNull(test);
 	}
-
+	
 	@Test
 	public void insertAlltest() {
 		BinaryTree<Fruit> tree = new BinaryTree<>();

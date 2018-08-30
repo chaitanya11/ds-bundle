@@ -140,7 +140,6 @@ public class BinaryTree<T extends Comparable<T>> {
 	public void setRoot(final BinaryTreeNode<T> root) {
 		this.root = root;
 	}
-
 	/**
 	 * Searches for the given node in the tree returns the node if found and null,
 	 * if not present.
