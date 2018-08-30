@@ -50,7 +50,6 @@ public class AVLTreeTest {
 		avlTree.insert(20);
 		List<Integer> values = avlTree.preOrderTraversal(avlTree.getRoot());
 		avlTree.insertAll(Arrays.asList(new Integer[] { 9, 1, 0, -1, 5, 2, 6, 11, 10, 20 }));
-		System.out.println(avlTree.getRoot());
 		AVLNode<Integer> result = avlTree.search(new AVLNode<Integer>(1));
 		Assert.assertNotNull(result);
 		result = avlTree.search(new AVLNode<Integer>(111));

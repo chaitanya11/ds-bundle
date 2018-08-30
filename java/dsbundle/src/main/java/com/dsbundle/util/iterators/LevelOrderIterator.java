@@ -1,8 +1,8 @@
-package com.dsbundle.util;
+package com.dsbundle.util.iterators;
 
 import com.dsbundle.models.BaseNode;
-import com.dsbundle.models.BinaryTreeNode;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 

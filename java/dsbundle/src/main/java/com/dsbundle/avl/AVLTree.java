@@ -3,6 +3,7 @@ package com.dsbundle.avl;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import static com.dsbundle.util.GeneralUtils.max;
 
 import com.dsbundle.models.AVLNode;
 
@@ -36,46 +37,6 @@ public class AVLTree<T extends Comparable<T>> {
 		return N.getHeight();
 	}
 
-	// A utility function to get maximum of two integers
-	private int max(int a, int b) {
-		return (a > b) ? a : b;
-	}
-
-	// A utility function to right rotate subtree rooted with y
-	// See the diagram given above.
-	private AVLNode<T> rightRotate(AVLNode<T> y) {
-		AVLNode<T> x = y.getLeft();
-		AVLNode<T> T2 = x.getRight();
-
-		// Perform rotation
-		x.setRight(y);
-		y.setLeft(T2);
-
-		// Update heights
-		y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
-		x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
-
-		// Return new root
-		return x;
-	}
-
-	// A utility function to left rotate subtree rooted with x
-	// See the diagram given above.
-	private AVLNode<T> leftRotate(AVLNode<T> x) {
-		AVLNode<T> y = x.getRight();
-		AVLNode<T> T2 = y.getLeft();
-
-		// Perform rotation
-		y.setLeft(x);
-		x.setRight(T2);
-
-		// Update heights
-		x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
-		y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
-
-		// Return new root
-		return y;
-	}
 
 	// Get Balance factor of node N
 	private int getBalance(AVLNode<T> N) {
@@ -124,25 +85,25 @@ public class AVLTree<T extends Comparable<T>> {
 		// are 4 cases Left Left Case
 		// newNode < node.getLeft().getKey()
 		if (balance > 1 && (newNode.compareTo(node.getLeft()) < 0))
-			return rightRotate(node);
+			return node.rightRotate();
 
 		// Right Right Case
 		// newNode > node.getRight().getKey()
 		if (balance < -1 && (newNode.compareTo(node.getRight()) > 0))
-			return leftRotate(node);
+			return node.leftRotate();
 
 		// Left Right Case
 		// newNode > node.getLeft().getKey()
 		if (balance > 1 && (newNode.compareTo(node.getLeft()) > 0)) {
-			node.setLeft(leftRotate(node.getLeft()));
-			return rightRotate(node);
+			node.setLeft(node.getLeft().leftRotate());
+			return node.rightRotate();
 		}
 
 		// Right Left Case
 		// newNode < node.getRight().getKey()
 		if (balance < -1 && (newNode.compareTo(node.getRight()) < 0)) {
-			node.setRight(rightRotate(node.getRight()));
-			return leftRotate(node);
+			node.setRight(node.getRight().rightRotate());
+			return node.leftRotate();
 		}
 
 		/* return the (unchanged) node pointer */
@@ -234,22 +195,22 @@ public class AVLTree<T extends Comparable<T>> {
 		// If this node becomes unbalanced, then there are 4 cases
 		// Left Left Case
 		if (balance > 1 && getBalance(root.getLeft()) >= 0)
-			return rightRotate(root);
+			return root.rightRotate();
 
 		// Left Right Case
 		if (balance > 1 && getBalance(root.getLeft()) < 0) {
-			root.setLeft(leftRotate(root.getLeft()));
-			return rightRotate(root);
+			root.setLeft(root.getLeft().leftRotate());
+			return root.rightRotate();
 		}
 
 		// Right Right Case
 		if (balance < -1 && getBalance(root.getRight()) <= 0)
-			return leftRotate(root);
+			return root.leftRotate();
 
 		// Right Left Case
 		if (balance < -1 && getBalance(root.getRight()) > 0) {
-			root.setRight(rightRotate(root.getRight()));
-			return leftRotate(root);
+			root.setRight(root.getRight().rightRotate());
+			return root.leftRotate();
 		}
 
 		return root;

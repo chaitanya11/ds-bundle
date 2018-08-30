@@ -1,10 +1,11 @@
 package com.dsbundle.models;
 
-import com.dsbundle.util.InOrderIterator;
-import com.dsbundle.util.Iterator;
-import com.dsbundle.util.LevelOrderIterator;
-import com.dsbundle.util.PostOrderIterator;
-import com.dsbundle.util.PreOrderIterator;
+import com.dsbundle.util.iterators.InOrderIterator;
+import com.dsbundle.util.iterators.LevelOrderIterator;
+import com.dsbundle.util.iterators.PostOrderIterator;
+import com.dsbundle.util.iterators.PreOrderIterator;
+
+import java.util.Iterator;
 
 /**
  * Model for BinaryTree Node containing left and right child.
