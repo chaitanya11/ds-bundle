@@ -1,231 +1,247 @@
 package com.dsbundle.avl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import static com.dsbundle.util.GeneralUtils.max;
 
 import com.dsbundle.models.AVLNode;
 
-public class AVLTree {
+public class AVLTree<T extends Comparable<T>> {
 
-    AVLNode root;
+	private AVLNode<T> root;
 
-    // A utility function to get the height of the tree
-    int height(AVLNode N) {
-        if (N == null)
-            return 0;
+	public AVLTree() {
+		this.root = null;
+	}
 
-        return N.getHeight();
-    }
+	/**
+	 * @return the root
+	 */
+	public AVLNode<T> getRoot() {
+		return root;
+	}
 
-    // A utility function to get maximum of two integers
-    int max(int a, int b) {
-        return (a > b) ? a : b;
-    }
+	/**
+	 * @param root root
+	 */
+	public void setRoot(final AVLNode<T> root) {
+		this.root = root;
+	}
 
-    // A utility function to right rotate subtree rooted with y
-    // See the diagram given above.
-    AVLNode rightRotate(AVLNode y) {
-        AVLNode x = y.getLeft();
-        AVLNode T2 = x.getRight();
+	// A utility function to get the height of the tree
+	private int height(AVLNode<T> N) {
+		if (N == null)
+			return 0;
 
-        // Perform rotation
-        x.setRight(y);
-        y.setLeft(T2);
+		return N.getHeight();
+	}
 
-        // Update heights
-        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
-        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
 
-        // Return new root
-        return x;
-    }
+	// Get Balance factor of node N
+	private int getBalance(AVLNode<T> N) {
+		if (N == null)
+			return 0;
 
-    // A utility function to left rotate subtree rooted with x
-    // See the diagram given above.
-    AVLNode leftRotate(AVLNode x) {
-        AVLNode y = x.getRight();
-        AVLNode T2 = y.getLeft();
+		return height(N.getLeft()) - height(N.getRight());
+	}
 
-        // Perform rotation
-        y.setLeft(x);
-        x.setRight(T2);
+	public void insert(T value) {
+		this.root = insert(root, new AVLNode<T>(value));
+	}
 
-        //  Update heights
-        x.setHeight(max(height(x.getLeft()), height(x.getRight())) + 1);
-        y.setHeight(max(height(y.getLeft()), height(y.getRight())) + 1);
+	public void insertAll(final List<T> values) {
+		Iterator<T> nodesIterator = values.iterator();
+		while (nodesIterator.hasNext()) {
+			this.insert(nodesIterator.next());
+		}
+	}
 
-        // Return new root
-        return y;
-    }
+	private AVLNode<T> insert(AVLNode<T> node, AVLNode<T> newNode) {
+		/* 1. Perform the normal BST insertion */
+		if (node == null)
+			return newNode;
+		boolean isLarger = node.compareTo(newNode) < 0 ? true : false;
 
-    // Get Balance factor of node N
-    int getBalance(AVLNode N) {
-        if (N == null)
-            return 0;
+		if (node.equals(newNode)) {
+			return node;
+		}
 
-        return height(N.getLeft()) - height(N.getRight());
-    }
+		if (isLarger)
+			node.setRight(insert(node.getRight(), newNode));
+		else
+			node.setLeft(insert(node.getLeft(), newNode));
 
-    AVLNode insert(AVLNode node, int key) {
+		/* 2. Update height of this ancestor node */
+		node.setHeight(1 + max(height(node.getLeft()), height(node.getRight())));
 
-        /* 1.  Perform the normal BST insertion */
-        if (node == null)
-            return (new AVLNode(key));
+		/*
+		 * 3. Get the balance factor of this ancestor node to check whether this node
+		 * became unbalanced
+		 */
+		int balance = getBalance(node);
 
-        if (key < node.getKey())
-            node.setLeft(insert(node.getLeft(), key));
-        else if (key > node.getKey())
-            node.setRight(insert(node.getRight(), key));
-        else // Duplicate keys not allowed
-            return node;
+		// If this node becomes unbalanced, then there
+		// are 4 cases Left Left Case
+		// newNode < node.getLeft().getKey()
+		if (balance > 1 && (newNode.compareTo(node.getLeft()) < 0))
+			return node.rightRotate();
 
-        /* 2. Update height of this ancestor node */
-        node.setHeight(1 + max(height(node.getLeft()),
-                height(node.getRight())));
+		// Right Right Case
+		// newNode > node.getRight().getKey()
+		if (balance < -1 && (newNode.compareTo(node.getRight()) > 0))
+			return node.leftRotate();
 
-        /* 3. Get the balance factor of this ancestor
-              node to check whether this node became
-              unbalanced */
-        int balance = getBalance(node);
+		// Left Right Case
+		// newNode > node.getLeft().getKey()
+		if (balance > 1 && (newNode.compareTo(node.getLeft()) > 0)) {
+			node.setLeft(node.getLeft().leftRotate());
+			return node.rightRotate();
+		}
 
-        // If this node becomes unbalanced, then there
-        // are 4 cases Left Left Case
-        if (balance > 1 && key < node.getLeft().getKey())
-            return rightRotate(node);
+		// Right Left Case
+		// newNode < node.getRight().getKey()
+		if (balance < -1 && (newNode.compareTo(node.getRight()) < 0)) {
+			node.setRight(node.getRight().rightRotate());
+			return node.leftRotate();
+		}
 
-        // Right Right Case
-        if (balance < -1 && key > node.getRight().getKey())
-            return leftRotate(node);
+		/* return the (unchanged) node pointer */
+		return node;
+	}
 
-        // Left Right Case
-        if (balance > 1 && key > node.getLeft().getKey()) {
-            node.setLeft(leftRotate(node.getLeft()));
-            return rightRotate(node);
-        }
+	public List<T> preOrderTraversal(final AVLNode<T> node) {
+		final List<T> preOrderList = new ArrayList<>();
+		final Iterator<AVLNode<T>> iterator = node.getPreOrderIterator();
+		while (iterator.hasNext()) {
+			preOrderList.add(iterator.next().getValue());
+		}
+		return preOrderList;
+	}
 
-        // Right Left Case
-        if (balance < -1 && key < node.getRight().getKey()) {
-            node.setRight(rightRotate(node.getRight()));
-            return leftRotate(node);
-        }
+	/*
+	 * Given a non-empty binary search tree, return the node with minimum key value
+	 * found in that tree. Note that the entire tree does not need to be searched.
+	 */
+	private AVLNode<T> minValueNode(AVLNode<T> node) {
+		AVLNode<T> current = node;
 
-        /* return the (unchanged) node pointer */
-        return node;
-    }
+		/* loop down to find the leftmost leaf */
+		while (current.getLeft() != null)
+			current = current.getLeft();
 
-    // A utility function to print preorder traversal
-    // of the tree.
-    // The function also prints height of every node
-    void preOrder(AVLNode node) {
-        if (node != null) {
-            System.out.print(node.getKey() + " ");
-            preOrder(node.getLeft());
-            preOrder(node.getRight());
-        }
-    }
+		return current;
+	}
 
-    /* Given a non-empty binary search tree, return the
-       node with minimum key value found in that tree.
-       Note that the entire tree does not need to be
-       searched. */
-    AVLNode minValueNode(AVLNode node)
-    {
-        AVLNode current = node;
+	public AVLNode<T> deleteNode(AVLNode<T> root, AVLNode<T> value) {
+		// STEP 1: PERFORM STANDARD BST DELETE
+		if (root == null)
+			return root;
+		boolean isBigger = root.compareTo(value) < 0 ? true : false;
+		// If the value to be deleted is smaller than
+		// the root's value, then it lies in left subtree
+		if (!isBigger)
+			root.setLeft(deleteNode(root.getLeft(), value));
 
-        /* loop down to find the leftmost leaf */
-        while (current.getLeft() != null)
-            current = current.getLeft();
+		// If the value to be deleted is greater than the
+		// root's value, then it lies in right subtree
+		else if (isBigger)
+			root.setRight(deleteNode(root.getRight(), value));
 
-        return current;
-    }
+		// if value is same as root's value, then this is the node
+		// to be deleted
+		else {
 
-    AVLNode deleteNode(AVLNode root, int key)
-    {
-        // STEP 1: PERFORM STANDARD BST DELETE
-        if (root == null)
-            return root;
+			// node with only one child or no child
+			if ((root.getLeft() == null) || (root.getRight() == null)) {
+				AVLNode temp = null;
+				if (temp == root.getLeft())
+					temp = root.getRight();
+				else
+					temp = root.getLeft();
 
-        // If the key to be deleted is smaller than
-        // the root's key, then it lies in left subtree
-        if (key < root.getKey())
-            root.setLeft( deleteNode(root.getLeft(), key));
+				// No child case
+				if (temp == null) {
+					temp = root;
+					root = null;
+				} else // One child case
+					root = temp; // Copy the contents of
+				// the non-empty child
+			} else {
 
-            // If the key to be deleted is greater than the
-            // root's key, then it lies in right subtree
-        else if (key > root.getKey())
-            root.setRight(deleteNode(root.getRight(), key));
+				// node with two children: Get the inorder
+				// successor (smallest in the right subtree)
+				AVLNode<T> temp = minValueNode(root.getRight());
 
-            // if key is same as root's key, then this is the node
-            // to be deleted
-        else
-        {
+				// Copy the inorder successor's data to this node
+				root.setValue(temp.getValue());
 
-            // node with only one child or no child
-            if ((root.getLeft() == null) || (root.getRight() == null))
-            {
-                AVLNode temp = null;
-                if (temp == root.getLeft())
-                    temp = root.getRight();
-                else
-                    temp = root.getLeft();
+				// Delete the inorder successor
+				root.setRight(deleteNode(root.getRight(), temp));
+			}
+		}
 
-                // No child case
-                if (temp == null)
-                {
-                    temp = root;
-                    root = null;
-                }
-                else   // One child case
-                    root = temp; // Copy the contents of
-                // the non-empty child
-            }
-            else
-            {
+		// If the tree had only one node then return
+		if (root == null)
+			return root;
 
-                // node with two children: Get the inorder
-                // successor (smallest in the right subtree)
-                AVLNode temp = minValueNode(root.getRight());
+		// STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
+		root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
 
-                // Copy the inorder successor's data to this node
-                root.setKey(temp.getKey());
+		// STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to check whether
+		// this node became unbalanced)
+		int balance = getBalance(root);
 
-                // Delete the inorder successor
-                root.setRight(deleteNode(root.getRight(), temp.getKey()));
-            }
-        }
+		// If this node becomes unbalanced, then there are 4 cases
+		// Left Left Case
+		if (balance > 1 && getBalance(root.getLeft()) >= 0)
+			return root.rightRotate();
 
-        // If the tree had only one node then return
-        if (root == null)
-            return root;
+		// Left Right Case
+		if (balance > 1 && getBalance(root.getLeft()) < 0) {
+			root.setLeft(root.getLeft().leftRotate());
+			return root.rightRotate();
+		}
 
-        // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
-        root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
+		// Right Right Case
+		if (balance < -1 && getBalance(root.getRight()) <= 0)
+			return root.leftRotate();
 
-        // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to check whether
-        //  this node became unbalanced)
-        int balance = getBalance(root);
+		// Right Left Case
+		if (balance < -1 && getBalance(root.getRight()) > 0) {
+			root.setRight(root.getRight().rightRotate());
+			return root.leftRotate();
+		}
 
-        // If this node becomes unbalanced, then there are 4 cases
-        // Left Left Case
-        if (balance > 1 && getBalance(root.getLeft()) >= 0)
-            return rightRotate(root);
+		return root;
+	}
 
-        // Left Right Case
-        if (balance > 1 && getBalance(root.getLeft()) < 0)
-        {
-            root.setLeft(leftRotate(root.getLeft()));
-            return rightRotate(root);
-        }
+	/**
+	 * Search for a given node in the tree If present, Returns the node otherwise
+	 * returns null
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public AVLNode<T> search(final AVLNode<T> node) {
+		return searchForValue(this.root, node);
 
-        // Right Right Case
-        if (balance < -1 && getBalance(root.getRight()) <= 0)
-            return leftRotate(root);
+	}
 
-        // Right Left Case
-        if (balance < -1 && getBalance(root.getRight()) > 0)
-        {
-            root.setRight(rightRotate(root.getRight()));
-            return leftRotate(root);
-        }
+	private AVLNode<T> searchForValue(AVLNode<T> node, AVLNode<T> searchNode) {
+		if (node != null) {
 
-        return root;
-    }
+			if (node.compareTo(searchNode) < 0) {
+				// value of the node is less than the value searched, traverse right
+				return searchForValue(node.getRight(), searchNode);
+			} else if (node.compareTo(searchNode) > 0) {
+				// value of the node is greater than the value searched, traverse left
+				return searchForValue(node.getLeft(), searchNode);
+			} else if (node.compareTo(searchNode) == 0) {
+				return node;
+			}
+		}
+		return null;
+	}
+
 }
